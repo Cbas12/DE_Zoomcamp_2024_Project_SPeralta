@@ -21,14 +21,19 @@ def transform_in_bigquery(*args, **kwargs) -> DataFrame:
         "OPTIONS ( format = 'parquet', uris = ['gs://sp_project_bucket/new_crime_data.parquet']);"
     )
 
-    spark = kwargs['spark']
-    print(spark)
+    query_select = (
+        "SELECT * FROM `spatial-vision-412003.sp_project_bq.external_crime_temp` limit 100"
+    )
+
+    #spark = kwargs['spark']
+    #print(spark)
 
     #sp_project_bucket/new_crime_data.parquet
 
     BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).execute(query)
 
-    return "Data loaded..."
+
+    return BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).load(query_select)
 
     #with BigQuery.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
         # Write queries to transform your dataset with
