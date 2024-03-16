@@ -16,29 +16,17 @@ def transform_in_bigquery(*args, **kwargs) -> DataFrame:
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'default'
 
-    query = (
-        "CREATE OR REPLACE EXTERNAL TABLE `spatial-vision-412003.sp_project_bq.external_crime_temp` "
-        "OPTIONS ( format = 'parquet', uris = ['gs://sp_project_bucket/new_crime_data.parquet']);"
-    )
-
     query_select = (
-        "SELECT * FROM `spatial-vision-412003.sp_project_bq.external_crime_temp`"
+        "SELECT * FROM `spatial-vision-412003.sp_project_bq.external_crime_temp_full`"
+        "WHERE Date_Rptd LIKE '%/2023%' AND LEFT(Date_Rptd,2) IN ('07','08','09','10','11','12');"
     )
+    #"WHERE Date_Rptd LIKE '%/2023%' AND LEFT(Date_Rptd,2) IN ('01','02','03','04','05','06');"
+    #"WHERE Date_Rptd LIKE '%/2023%' AND LEFT(Date_Rptd,2) IN ('07','08','09','10','11','12');"
 
-    #spark = kwargs['spark']
-    #print(spark)
-
-    #sp_project_bucket/new_crime_data.parquet
-
-    BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).execute(query)
+    #BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).execute(query)
 
 
     return BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).load(query_select)
-
-    #with BigQuery.with_config(ConfigFileLoader(config_path, config_profile)) as loader:
-        # Write queries to transform your dataset with
-    #    loader.execute(query)
-   #     return loader.sample(sample_schema, sample_size, sample_table)
 
 
 @test
