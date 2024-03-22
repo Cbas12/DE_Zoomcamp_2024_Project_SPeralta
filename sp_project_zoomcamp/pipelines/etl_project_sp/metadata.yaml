@@ -30,13 +30,13 @@ blocks:
   language: python
   name: load_gcs
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
   - ext_google_sheets
   uuid: load_gcs
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:
@@ -55,7 +55,7 @@ blocks:
   upstream_blocks:
   - load_gcs
   uuid: get_data_bq
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -72,7 +72,7 @@ blocks:
   upstream_blocks:
   - get_data_bq
   uuid: transf_data_bq
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:

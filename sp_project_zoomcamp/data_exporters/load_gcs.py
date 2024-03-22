@@ -16,9 +16,17 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
     bucket_name = 'sp_project_bucket'
     object_key = 'new_crime_data.parquet'
 
+    story_object_key = df['Date Rptd'].str[:9]
+    print(story_object_key)
+
+    #GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
+    #    df,
+    #    bucket_name,
+    #    object_key,
+    #)
+
     GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
         df,
         bucket_name,
         object_key,
     )
-

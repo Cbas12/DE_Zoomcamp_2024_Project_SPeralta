@@ -14,14 +14,18 @@ def load_from_google_sheet(*args, **kwargs):
     config_profile = 'default'
 
     header_rows = 1
-    sheet_url = 'https://docs.google.com/spreadsheets/d/11XpEfrNR-vf5wcjuEXpsG_ITCxmGvfoum2Yqciv59_g/edit?usp=sharing'
-
+    
+    #daily crimes
+    sheet_url = 'https://docs.google.com/spreadsheets/d/1-GpKDEI9_sj9U-MmtYPT6HnJjpaSuXN9GNZLYwUY1No/edit?usp=sharing'
+    
+    #test
+    #sheet_url = 'https://docs.google.com/spreadsheets/d/11XpEfrNR-vf5wcjuEXpsG_ITCxmGvfoum2Yqciv59_g/edit?usp=sharing'
     
     df = GoogleSheets.with_config(ConfigFileLoader(config_path, config_profile)).load(
         sheet_url=sheet_url,
         header_rows=header_rows
     )
-
+    
     new_types = {
         'DR_NO': str,
         'Date Rptd': str,
@@ -54,7 +58,7 @@ def load_from_google_sheet(*args, **kwargs):
     }
 
     df = df.astype(new_types)
-
+    print('aqui3')
     return df
 
 
